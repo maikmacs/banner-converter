@@ -18,6 +18,7 @@ use Cake\Core\Configure;
 use Cake\Network\Exception\ForbiddenException;
 use Cake\Network\Exception\NotFoundException;
 use Cake\View\Exception\MissingTemplateException;
+use Cake\Routing\Router;
 
 /**
  * Static content controller
@@ -39,6 +40,7 @@ class PagesController extends AppController
      */
     public function display()
     {
+            
         $path = func_get_args();
 
         $count = count($path);
