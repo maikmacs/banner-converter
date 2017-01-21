@@ -1,6 +1,3 @@
-
-
-
 <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
         <li class="active"><a href="#HB" data-toggle="tab">Banner HB</a></li>
         <li><a href="#DD" data-toggle="tab">DoubleClick</a></li>
@@ -46,7 +43,7 @@
         </div>
         <div class="tab-pane" id="DD">
               <div class="tab_content">
-                <form id="form_DD"  action="action_to_GDD.php" method="post" enctype="multipart/form-data">
+                <form id="form_DD"  action="<?php echo $this->Url->build(["controller" => "converter","action" => "doubleclick",]);?>" method="post" enctype="multipart/form-data">
                   <div class="container">
                     <div class="well clearfix">
                       <fieldset class="well well-form">
@@ -65,27 +62,32 @@
                         </div>
 
                         <div class="row">
-
-                          <div class="col-md-4">
+                          <div class="col-md-12">
                             <label class="control-label" for="booking-date">Zip File</label>
 
                             <div class="form-group">
                               <input class="file_upload" type="file" name="zip_file" id="zip_file_DD" accept=".zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed" required/>
                             </div>
                           </div>
+                        </div>
 
+                        <div class="row">
+                          
+                          <div class="col-md-2">
+                            <label class="control-label" for="banner_size">Width:</label>
+                            <input class="form-control" type="number" name="width">
+                          </div>
 
                           <div class="col-md-2">
-                            <label class="control-label" for="form_days">Size</label>
-                            <select class="form-control" id="form_days" name="size" required>
-                              <option selected disabled hidden style='display: none' value=''></option>
-                              <option value="height=90,width=720">720 x 90</option>
-                            </select>
+                            <label class="control-label" for="banner_size">Height:</label>
+                            <input class="form-control" type="number" name="height">
                           </div>
+                          
                         </div>
 
                         <div class="row">
                           <div class="col-md-12">
+                            <br>
                             <button class="btn btn-success "> Send </button>
                           </div>
                         </div>
