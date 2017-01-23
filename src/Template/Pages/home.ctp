@@ -13,7 +13,7 @@
                       <legend class="well-legend"><h2>Banner HB</h2></legend>
 
                       <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <label class="control-label" for="booking-date">Zip File</label>
 
                           <div class="input-group">
