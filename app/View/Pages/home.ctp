@@ -1,8 +1,11 @@
+<?php /*
 <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-        <li class="active"><a href="#HB" data-toggle="tab">Banner HB</a></li>
-        <li><a href="#DD" data-toggle="tab">DoubleClick</a></li>
-    </ul>
+    <li class="active"><a href="#HB" data-toggle="tab">Banner HB</a></li>
+    <li><a href="#DD" data-toggle="tab">DoubleClick</a></li>
+</ul>
+*/ ?>
     <div id="my-tab-content" class="tab-content">
+        <?php /*
         <div class="tab-pane active" id="HB">
             <div class="tab_content">
               <form id="form_HB" action="<?php echo Router::url(array('controller' => 'converter', 'action' => 'hb')); ?>" method="post" enctype="multipart/form-data">
@@ -41,7 +44,8 @@
               </form>
             </div>
         </div>
-        <div class="tab-pane" id="DD">
+        */?>
+        <?php /* <div class="tab-pane" id="DD"> */ ?>
               <div class="tab_content">
                 <form id="form_DD"  action="<?php echo Router::url(array('controller' => 'converter', 'action' => 'doubleclick')); ?>" method="post" enctype="multipart/form-data">
                   <div class="container">
@@ -71,7 +75,7 @@
                           </div>
                         </div>
 
-                        <div class="row">
+                        <!-- <div class="row">
                           
                           <div class="col-md-2">
                             <label class="control-label" for="banner_size">Width:</label>
@@ -83,7 +87,7 @@
                             <input class="form-control" type="number" name="height">
                           </div>
                           
-                        </div>
+                        </div> -->
 
                         <div class="row">
                           <div class="col-md-12">
@@ -110,7 +114,7 @@
 
                 </form>
               </div>
-        </div>
+        <?php /* </div> */ ?>
 
 
-    </div>
+   <?php /* </div> */ ?>
