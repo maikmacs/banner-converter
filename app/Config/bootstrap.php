@@ -238,6 +238,3 @@ App::uses('File', 'Utility');
 		readfile($outfile);
 
 	}
-
-
-//MINIFY

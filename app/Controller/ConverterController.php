@@ -11,6 +11,16 @@ class ConverterController extends AppController {
 			$filename = $_FILES["zip_file"]["name"];
 			$zip_arr = unzip_file($url_zip);
 			$index_name = $zip_arr['index_name'];
+
+            //GET SIZE
+            $html = file_get_contents($zip_arr['index_url']);
+            $doc = new DOMDocument();
+            @$doc->loadHTML($html);
+            $tag = $doc->getElementsByTagName('canvas');
+            $width = $tag[0]->getAttribute("width");
+            $height = $tag[0]->getAttribute("height");
+            //
+
 			$js_name = str_replace(' ','',$index_name);
 
             $createjs = 'js/createjs-2015.11.26.min.js';
@@ -21,6 +31,7 @@ class ConverterController extends AppController {
 <head>
     <meta charset="UTF-8">
     <title>'.$index_name.'</title>
+    <meta name="ad.size" content="width='.$width.',height='.$height.'">
     <script>
 
         '.file_get_contents($createjs).'
@@ -56,7 +67,7 @@ class ConverterController extends AppController {
 
 <body onload="init();" style="cursor: pointer; margin:0px;">
     <script>var clickTag = "%%CLICK_URL_UNESC%%%%DEST_URL%%";</script>
-    <canvas id="canvas" width="300" height="600" style="background-color:#FFFFFF"></canvas>
+    <canvas id="canvas" width="'.$width.'" height="'.$height.'" style="background-color:#FFFFFF"></canvas>
     <script type="text/javascript">
         var clickArea = document.getElementById("canvas");
         clickArea.onclick = function() {
@@ -100,12 +111,22 @@ class ConverterController extends AppController {
 				$filename = $_FILES["zip_file"]["name"];
 				$zip_arr = unzip_file($url_zip);
 				$index_name = $zip_arr['index_name'];
+
+                //GET SIZE
+                $html = file_get_contents($zip_arr['index_url']);
+                $doc = new DOMDocument();
+                @$doc->loadHTML($html);
+                $tag = $doc->getElementsByTagName('canvas');
+                $width = $tag[0]->getAttribute("width");
+                $height = $tag[0]->getAttribute("height");
+                //
+
 				$js_name = str_replace(' ','',$index_name);
 
                 $createjs = 'js/createjs-2015.11.26.min.js';
 
-                error_reporting(~0);
-ini_set('display_errors', 1);
+                //error_reporting(~0);
+                //ini_set('display_errors', 1);
 
 			$html='<!DOCTYPE html>
 <html>
@@ -113,7 +134,7 @@ ini_set('display_errors', 1);
 <head>
     <meta charset="UTF-8">
     <title>'.$index_name.'</title>
-    <meta name="ad.size" content="width='.$data['width'].',height='.$data['height'].'">
+    <meta name="ad.size" content="width='.$width.',height='.$height.'">
     <script>
 
         '.file_get_contents($createjs).'
@@ -151,7 +172,7 @@ ini_set('display_errors', 1);
 
 <body onload="init();" style="background-color:#D4D4D4;margin:0px;">
     <a href="javascript:window.open(window.clickTag)">
-        <canvas id="canvas" width="'.$data['width'].'" height="'.$data['height'].'" style="background-color:#FFFFFF"></canvas>
+        <canvas id="canvas" width="'.$width.'" height="'.$height.'" style="background-color:#FFFFFF"></canvas>
     </a>
 </body>
 
