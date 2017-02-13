@@ -115,10 +115,19 @@ CakeLog::config('error', array(
 App::uses('Folder', 'Utility');
 App::uses('File', 'Utility');
 
+/** CREATE TEMP FOLDER **/
+
+$path =   APP.'webroot'. DS .'temp';
+
+if (!file_exists($path)) {
+	$temp_folder = new Folder($path, true, 0777);
+}
+/** **/
+
 	function upload_file($zip_file){
 
 		$realpath = APP.'webroot';
-		$temppath = $realpath . '/temp_'.md5(uniqid(rand(), true)).'/';
+		$temppath = $realpath . DS .'temp'. DS .'temp_'.md5(uniqid(rand(), true)).'/';
 		$temppath_arr = new Folder($temppath, true, 0777);
 		$temppath = $temppath_arr->path;
 
@@ -142,6 +151,8 @@ App::uses('File', 'Utility');
 
 	function unzip_file($zip_arr){
 
+		$js_url = '';
+		$fla_file = '';
 		$zip = new ZipArchive();
 
 		$x = $zip->open($zip_arr['target_path']);
@@ -154,11 +165,18 @@ App::uses('File', 'Utility');
 
 				$info = pathinfo($zip->getNameIndex($i));
 				if(isset($info["extension"]) ){
+
 					if ($info["extension"] == "html") {
 						$index_name = $zip->getNameIndex($i);
 						$index_url = $zip_arr['temppath'] . $zip->getNameIndex($i);
-					}else if ($info["extension"] == "js") {
+					}
+
+					if ($info["extension"] == "js") {
 						$js_url = $zip_arr['temppath'] . $zip->getNameIndex($i);
+					}
+
+					if ($info["extension"] == "fla") {
+						$fla_file = $zip_arr['temppath'] .  $zip->getNameIndex($i);
 					}
 				}
 				
@@ -175,9 +193,11 @@ App::uses('File', 'Utility');
 		$index_name = basename($index_name, $folder_name);
 		$index_name = basename($index_name, '.html');
 
+
 		$return = array('folder_name' => $folder_name,
 						'index_name' => $index_name,
 						'index_url' => $index_url,
+						'fla_file' => $fla_file,
 						'js_url' => $js_url );
 
 		return $return;
@@ -192,13 +212,16 @@ App::uses('File', 'Utility');
 
 	function zip_file($all_vars){
 
+
+
 		$zipFile_name = $all_vars['index_name'].'_.zip';
-		$rootPath = realpath($all_vars['temppath'].$all_vars['folder_name']);//Folder to zip
-
-
+		$rootPath = realpath($all_vars['temppath']);//Folder to zip
+		//echo $all_vars['temppath'].$all_vars['folder_name'];
+		
 		// Initialize archive object
 		$zip = new ZipArchive();
 		$zip->open($all_vars['temppath'].$zipFile_name, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+
 
 		// Create recursive directory iterator
 		/** @var SplFileInfo[] $files */
@@ -206,6 +229,8 @@ App::uses('File', 'Utility');
 		    new RecursiveDirectoryIterator($rootPath),
 		    RecursiveIteratorIterator::LEAVES_ONLY
 		);
+
+
 
 		foreach ($files as $name => $file)
 		{

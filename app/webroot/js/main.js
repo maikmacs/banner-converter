@@ -14,9 +14,12 @@ $(function() {
     $(".file_upload").filer({
     	limit: 1,
 		showThumbs: true,
-		addMore: true,
+		addMore: false,
 		allowDuplicates: false,
 		extensions: ['zip'],
+        templates: {
+            removeConfirmation: false,
+        },
 		captions: {
             button: "Choose Files",
             feedback: "Choose files To Upload",
