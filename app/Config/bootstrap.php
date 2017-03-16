@@ -256,7 +256,7 @@ if (!file_exists($path)) {
 
 	function download_header($filename,$outfile){
 
-		header("Content-disposition: attachment; filename=DoubleClick_$filename");
+		header("Content-disposition: attachment; filename=DC_$filename");
 		header('Content-type: application/zip');
 		ob_clean();
 		flush();
