@@ -7,13 +7,32 @@ class ConverterController extends AppController {
     	if ($this->request->is('post')) {
 
     		$data = $this->request->data;
-    		$url_zip = upload_file($_FILES);
+
+            if (!empty($_FILES)) {
+                $url_zip = upload_file($_FILES);
+            }else{
+                $this->redirect(array(
+                        'controller' => 'pages', 'action' => 'error', '?' => array(
+                            'error' => 'zip'
+                        )
+                    ));
+                   die();
+            }
+    		
 
 	    	if ($url_zip !== 'error') {
 				$filename = $_FILES["zip_file"]["name"];
 				$zip_arr = unzip_file($url_zip);
 				$index_name = $zip_arr['index_name'];
 
+                if ($zip_arr['index_url'] == '') {
+                   $this->redirect(array(
+                        'controller' => 'pages', 'action' => 'error', '?' => array(
+                            'error' => 'index'
+                        )
+                    ));
+                   die();
+                }
 
                 //GET SIZE
                 $html = file_get_contents($zip_arr['index_url']);
@@ -111,8 +130,15 @@ class ConverterController extends AppController {
 				$folder->delete();
 			}
 
-    	}
-    	die();
+    	}else{
+            $this->redirect(array(
+                        'controller' => 'pages', 'action' => 'error', '?' => array(
+                            'error' => 'zip'
+                        )
+                    ));
+                   die();
+        }
+    	
     }
 
 }

@@ -36,3 +36,21 @@ fieldset {
     background-color: rgb(50, 118, 177);
     border-color: rgb(40, 94, 142);
 }
+  #block_error{
+      max-width: 800px;
+      width: 100%;
+      border: 1px solid #cccccc;
+      margin: 20px auto;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      border-radius: 4px;
+  }
+  #block_error div{
+      margin: 70px;
+  }
+  #block_error div h2{
+      display: block;
+  }
+   #block_error .btn{
+    
+   }

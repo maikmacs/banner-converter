@@ -189,6 +189,10 @@ if (!file_exists($path)) {
 			unlink($zip_arr['target_path']);
 		}
 
+		if (!isset($index_name)) {
+			$index_name = '';
+		}
+
 		$folder_name = basename($zip_arr['filename'], ".zip");
 		$index_name = basename($index_name, $folder_name);
 		$index_name = basename($index_name, '.html');
